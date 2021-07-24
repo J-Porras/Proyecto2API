@@ -61,43 +61,30 @@ namespace Proyecto2.DAOs
 
         public Usuario GetUsuarioById(string id)
         {
-            try
+            MySqlConnection connection = GetConnection();
+            string query = $"select * from Usuarios where id = '{id}'";
+
+            MySqlCommand cmd = new MySqlCommand(query, connection);
+            cmd.CommandTimeout = 60;
+            connection.Open();
+            MySqlDataReader reader = cmd.ExecuteReader();
+            if (!reader.HasRows)
             {
-
-
-                MySqlConnection connection = GetConnection();
-                string query = $"select * from Usuarios where id = '{id}'";
-
-                MySqlCommand cmd = new MySqlCommand(query, connection);
-                cmd.CommandTimeout = 60;
-                connection.Open();
-                MySqlDataReader reader = cmd.ExecuteReader();
-                if(reader.HasRows)
-                {
-                    Usuario u = new Usuario(
-                        reader["Id"].ToString(),
-                        reader["nombre"].ToString(),
-                        reader["contrasenna"].ToString(),
-                        Convert.ToInt32(reader["rol"])
-
-                        );
-                    return u;
-                }
-                return null;
-
-
-            }
-            catch (MySqlException ex)
-            {
-                Console.WriteLine($"MySqlException: '{ex}'");
-                return null;
-
-            }
-            catch (Exception)
-            {
-
                 return null;
             }
+            while (reader.Read())
+            {
+                Usuario u = new Usuario(
+                    reader["Id"].ToString(),
+                    reader["nombre"].ToString(),
+                    reader["contrasenna"].ToString(),
+                    Convert.ToInt32(reader["rol"])
+
+                    );
+                return u;
+            }
+            return null;
+
         }
     }
 }

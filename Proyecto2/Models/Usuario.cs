@@ -14,6 +14,7 @@
             this.Contrasenna = contrasenna;
             this.Rol = rol;
         }
+        public Usuario() { }
 
         public Usuario(string id, string nombre, int rol)
         {
