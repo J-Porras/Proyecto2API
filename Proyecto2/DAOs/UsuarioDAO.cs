@@ -61,29 +61,45 @@ namespace Proyecto2.DAOs
 
         public Usuario GetUsuarioById(string id)
         {
-            MySqlConnection connection = GetConnection();
-            string query = $"select * from Usuarios where id = '{id}'";
-
-            MySqlCommand cmd = new MySqlCommand(query, connection);
-            cmd.CommandTimeout = 60;
-            connection.Open();
-            MySqlDataReader reader = cmd.ExecuteReader();
-            if (!reader.HasRows)
+            try
             {
+                MySqlConnection connection = GetConnection();
+                string query = $"select * from Usuarios where id = '{id}'";
+
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                cmd.CommandTimeout = 60;
+                connection.Open();
+                MySqlDataReader reader = cmd.ExecuteReader();
+                if (!reader.HasRows)
+                {
+                    return null;
+                }
+                while (reader.Read())
+                {
+                    Usuario u = new Usuario(
+                        reader["Id"].ToString(),
+                        reader["nombre"].ToString(),
+                        reader["contrasenna"].ToString(),
+                        Convert.ToInt32(reader["rol"])
+
+                        );
+                    return u;
+                }
                 return null;
             }
-            while (reader.Read())
+            catch (MySqlException ex)
             {
-                Usuario u = new Usuario(
-                    reader["Id"].ToString(),
-                    reader["nombre"].ToString(),
-                    reader["contrasenna"].ToString(),
-                    Convert.ToInt32(reader["rol"])
+                Console.WriteLine($"MySqlException: '{ex.Code} - ' '{ex.Message}'");
 
-                    );
-                return u;
+                return null;
+
             }
-            return null;
+            catch (Exception)
+            {
+
+                return null;
+            }
+            
 
         }
     }

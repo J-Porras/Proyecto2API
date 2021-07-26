@@ -36,9 +36,7 @@ namespace Proyecto2.Controllers
             if (userhttp == null)
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
 
-            //TODO: Validate credentials Correctly, this code is only for demo !!
             Usuario u = serviceLogin.GetUsuarioById(userhttp.Id);
-            //bool isCredentialValid = (login.Password == "123456");
             if (u is object)
             {
                 var token = TokenGenerator.GenerateTokenJwt(userhttp.Id);

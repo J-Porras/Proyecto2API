@@ -68,19 +68,18 @@ namespace Proyecto2.DAOs
                 connection.Open();
 
                 MySqlDataReader reader = cmd.ExecuteReader();
-                if (reader.HasRows)
+                if (!reader.HasRows)
+                {
+                    return null;
+                }
+                while (reader.Read())
                 {
                     return new Sala(
                         Convert.ToInt32(reader["Id"]),
                         reader["nombre"].ToString()
                     );
-
                 }
-                else
-                {
-                    return null;
-
-                }
+                return null;
             }
             catch (MySqlException ex)
             {

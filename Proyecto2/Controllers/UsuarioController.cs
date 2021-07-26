@@ -28,22 +28,5 @@ namespace Proyecto2.Controllers
             return this.servicelogin.GetUsuarioById(u.Id);
         }
 
-
-
-
-        //// POST: api/Usuario
-        //public void Post([FromBody]string value)
-        //{
-        //}
-
-        //// PUT: api/Usuario/5
-        //public void Put(int id, [FromBody]string value)
-        //{
-        //}
-
-        //// DELETE: api/Usuario/5
-        //public void Delete(int id)
-        //{
-        //}
     }
 }
