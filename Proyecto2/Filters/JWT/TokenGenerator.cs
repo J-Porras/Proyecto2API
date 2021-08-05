@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
     
@@ -8,7 +9,7 @@ namespace Proyecto2.Controllers
 {
     internal static class TokenGenerator
     {
-        public static string GenerateTokenJwt(string username)
+        public static string GenerateTokenJwt(string username,int rol)
         {
             // appsetting for Token JWT
             var secretKey = ConfigurationManager.AppSettings["JWT_SECRET_KEY"];
@@ -21,6 +22,7 @@ namespace Proyecto2.Controllers
 
             // create a claimsIdentity
             ClaimsIdentity claimsIdentity = new ClaimsIdentity(new[] { new Claim(ClaimTypes.Name, username) });
+            claimsIdentity.AddClaim(new Claim(ClaimTypes.Role, rol.ToString()));
 
             // create token to the user
             var tokenHandler = new System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler();
@@ -34,6 +36,39 @@ namespace Proyecto2.Controllers
 
             var jwtTokenString = tokenHandler.WriteToken(jwtSecurityToken);
             return jwtTokenString;
+        }
+
+        public static ClaimsPrincipal GetPrincipal(string token)
+        {
+            var secretKey = ConfigurationManager.AppSettings["JWT_SECRET_KEY"];
+
+            try
+            {
+                var tokenHandler = new JwtSecurityTokenHandler();
+                var jwtToken = tokenHandler.ReadToken(token) as JwtSecurityToken;
+
+                if (jwtToken == null)
+                    return null;
+
+                var symmetricKey = Convert.FromBase64String(secretKey);
+
+                var validationParameters = new TokenValidationParameters()
+                {
+                    RequireExpirationTime = true,
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    IssuerSigningKey = new SymmetricSecurityKey(symmetricKey)
+                };
+
+                var principal = tokenHandler.ValidateToken(token, validationParameters, out _);
+
+                return principal;
+            }
+
+            catch (Exception)
+            {
+                return null;
+            }
         }
     }
 }

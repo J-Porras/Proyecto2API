@@ -12,7 +12,7 @@ namespace Proyecto2.Controllers
     public class UsuarioController : ApiController
     {
         ServiceLogin servicelogin = new ServiceLogin();
-
+      
         [Route("api/Usuario/List")]
         [HttpGet]
         // GET: api/Usuario

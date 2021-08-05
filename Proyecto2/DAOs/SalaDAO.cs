@@ -83,14 +83,48 @@ namespace Proyecto2.DAOs
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine($"MySqlException: '{ex.Code} - ' '{ex}'");
+                Console.WriteLine($"MySqlException: '{ex.Code} - ' '{ex.Message}'");
                 return null;
 
             }
             catch (Exception)
             {
-
                 return null;
+            }
+        }
+
+        public bool addNewSala(Sala sala)
+        {
+            try
+            {
+                MySqlConnection connection = GetConnection();
+                string query = "insert into salas (nombre) values(@nombre)";
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                cmd.Parameters.AddWithValue("@nombre", sala.Nombre);
+                cmd.CommandTimeout = 60;
+                connection.Open();
+                int rowCount  = cmd.ExecuteNonQuery();
+
+                if (rowCount == 1)//Successful
+                {
+                    return true;
+                }
+                else//Unsuccessfull
+                {
+                    return false;
+                }
+
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine($"MySqlException: '{ex.Code} - ' '{ex.Message}'");
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"MySqlException: '{ex.ToString()} --- ' '{ex.Message}'");
+
+                return false; ;
             }
         }
     }

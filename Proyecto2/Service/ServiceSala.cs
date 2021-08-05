@@ -22,5 +22,10 @@ namespace Proyecto2.Service
             return this.saladao.GetAllSalas();
         }
 
+        public bool addNewSala(Sala s)
+        {
+            return this.saladao.addNewSala(s);
+        }
+
     }
 }

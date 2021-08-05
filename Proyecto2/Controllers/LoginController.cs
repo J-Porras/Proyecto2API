@@ -4,6 +4,7 @@ using System.Net;
 using System.Threading;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using WebApi.Jwt;
 
 namespace Proyecto2.Controllers
 {
@@ -39,7 +40,7 @@ namespace Proyecto2.Controllers
             Usuario u = serviceLogin.GetUsuarioById(userhttp.Id);
             if (u is object)
             {
-                var token = TokenGenerator.GenerateTokenJwt(userhttp.Id);
+                var token = JwtManager.GenerateToken(u.Id,u.Rol);
                 return Ok(token);
             }
             else

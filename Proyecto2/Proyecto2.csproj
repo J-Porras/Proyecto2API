@@ -265,8 +265,10 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\SalaController.cs" />
-    <Compile Include="Controllers\TokenGenerator.cs" />
-    <Compile Include="Controllers\TokenValidationHandler.cs" />
+    <Compile Include="Filters\JWT\AddChallengeOnUnauthorizedResult.cs" />
+    <Compile Include="Filters\JWT\HttpAuthenticationChallengeContextExtensions.cs" />
+    <Compile Include="Filters\JWT\JwtManager.cs" />
+    <Compile Include="Filters\JWT\TokenGenerator.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="DAOs\PeliculaDAO.cs" />
@@ -274,6 +276,8 @@
     <Compile Include="DAOs\SalaDAO.cs" />
     <Compile Include="DAOs\UsuarioDAO.cs" />
     <Compile Include="Database\ProyectoDBContext.cs" />
+    <Compile Include="Filters\JWT\AuthenticationFailureResult.cs" />
+    <Compile Include="Filters\JWT\JwtAuthenticationAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
