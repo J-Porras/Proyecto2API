@@ -16,7 +16,7 @@ namespace WebApi.Jwt
         /// 
 
  
-        public static string GenerateToken(string username, int rol, int expireMinutes)
+        public static string GenerateToken(string username, int rol, int expireMinutes = 10)
         {
             expireMinutes = Convert.ToInt32(ConfigurationManager.AppSettings["JWT_EXPIRE_MINUTES"]);
             string Secret = ConfigurationManager.AppSettings["JWT_SECRET_KEY"];
