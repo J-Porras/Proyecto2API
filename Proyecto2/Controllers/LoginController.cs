@@ -8,7 +8,6 @@ using WebApi.Jwt;
 
 namespace Proyecto2.Controllers
 {
-    [AllowAnonymous]
     [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
 
     public class LoginController : ApiController
@@ -16,6 +15,7 @@ namespace Proyecto2.Controllers
 
         [HttpGet]
         [Route("api/echoping")]
+        [AllowAnonymous]
         public IHttpActionResult EchoPing()
         {
             return Ok(true);
@@ -23,6 +23,8 @@ namespace Proyecto2.Controllers
 
         [HttpGet]
         [Route("api/echouser")]
+        [AllowAnonymous]
+
         public IHttpActionResult EchoUser()
         {
             var identity = Thread.CurrentPrincipal.Identity;
@@ -31,6 +33,8 @@ namespace Proyecto2.Controllers
 
         [HttpPost]
         [Route("api/userLogin")]
+        [AllowAnonymous]
+
         public IHttpActionResult Authenticate(Usuario userhttp)
         {
             ServiceLogin serviceLogin = new ServiceLogin();

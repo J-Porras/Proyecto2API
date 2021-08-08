@@ -15,7 +15,11 @@ namespace Proyecto2.Filters
     public class JwtAuthenticationAttribute : Attribute, IAuthenticationFilter
     {
         public string Realm { get; set; }
+
         public bool AllowMultiple => false;
+
+        //public string Roles { get; set; }
+
 
         public async Task AuthenticateAsync(HttpAuthenticationContext context, CancellationToken cancellationToken)
         {
@@ -68,6 +72,8 @@ namespace Proyecto2.Filters
             rol = rolClaim?.Value;
             if (string.IsNullOrEmpty(rol))
                 return false;
+
+     
 
             // More validate to check whether username exists in system
 

@@ -1,4 +1,5 @@
 ﻿using Proyecto2.Controllers;
+using Proyecto2.Filters;
 using System.Web.Http;
 
 namespace Proyecto2
@@ -13,12 +14,7 @@ namespace Proyecto2
 
             // Web API routes
             config.MapHttpAttributeRoutes();
-            //config.MessageHandlers.Add(new TokenValidationHandler());
-
-            // Configure Web API to use only bearer token authentication.
-            //config.SuppressDefaultHostAuthentication();
-           // config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
-
+           // config.Filters.Add(new AuthorizeAttribute());
 
             //GlobalConfiguration.Configure(WebApiConfig.Register);
 

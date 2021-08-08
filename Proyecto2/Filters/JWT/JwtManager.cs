@@ -18,6 +18,8 @@ namespace WebApi.Jwt
  
         public static string GenerateToken(string username, int rol, int expireMinutes = 10)
         {
+            //string Secret = "db3OIsj+BXE9NZDy0t8W3TcNekrF+2d/1sFnWG4HnV8TZY30iTOdtVWJG8abWvB1GlOgJuQZdcF2Luqm/hccMw==";
+
             expireMinutes = Convert.ToInt32(ConfigurationManager.AppSettings["JWT_EXPIRE_MINUTES"]);
             string Secret = ConfigurationManager.AppSettings["JWT_SECRET_KEY"];
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -47,7 +49,9 @@ namespace WebApi.Jwt
         {
             try
             {
+                //string Secret = "db3OIsj+BXE9NZDy0t8W3TcNekrF+2d/1sFnWG4HnV8TZY30iTOdtVWJG8abWvB1GlOgJuQZdcF2Luqm/hccMw==";
                 string Secret = ConfigurationManager.AppSettings["JWT_SECRET_KEY"];
+
                 var tokenHandler = new JwtSecurityTokenHandler();
                 var jwtToken = tokenHandler.ReadToken(token) as JwtSecurityToken;
 

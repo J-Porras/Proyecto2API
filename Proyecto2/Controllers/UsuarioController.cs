@@ -1,4 +1,4 @@
-﻿
+﻿using Proyecto2.Filters;
 using Proyecto2.Models;
 using Proyecto2.Service;
 using System.Text.Json;
@@ -15,14 +15,17 @@ namespace Proyecto2.Controllers
       
         [Route("api/Usuario/List")]
         [HttpGet]
-        // GET: api/Usuario
+
+        [JwtAuthentication]
+        [Authorize(Roles = "0")]
         public string GetAllUsuarios()
         {
             return JsonSerializer.Serialize(servicelogin.GetAllUsuarios());
         }
 
         [Route("api/Usuario/user")]
-        [HttpGet]
+        [JwtAuthentication]
+        [Authorize(Roles = "0")]
         public Usuario GetUsuarioById(Usuario u)
         {
             return this.servicelogin.GetUsuarioById(u.Id);

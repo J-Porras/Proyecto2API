@@ -20,6 +20,7 @@ namespace Proyecto2.Controllers
         [Route("api/Sala/sala/{idsala}")]
         [HttpGet]
         [JwtAuthentication]
+        [Authorize(Roles = "0")]
 
         public Sala getSalabyId(int idsala)
         {
@@ -30,10 +31,13 @@ namespace Proyecto2.Controllers
 
         [Route("api/Sala/salas")]
         [HttpGet]
+
         [JwtAuthentication]
+        [Authorize(Roles = "0")]
 
         public string getAllSalas()
         {
+          //  var rol = User.Identity.ToString();
             return JsonSerializer.Serialize(this.servicesala.getAllSalas());
 
         }
@@ -41,6 +45,7 @@ namespace Proyecto2.Controllers
         [Route("api/Sala/add")]
         [HttpPost]
         [JwtAuthentication]
+        [Authorize(Roles = "0")]
 
         public IHttpActionResult addNewSala(Sala salabody)
         {
